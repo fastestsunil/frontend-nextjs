@@ -26,7 +26,7 @@ export default function SocialAccount() {
         onSuccess: () => {
           setIsLoading(false);
           setError(null);
-          router.push(cb);
+          // router.push('/dashboard');
         },
         onError: ctx => {
           setError(ctx.error.message);
@@ -36,34 +36,34 @@ export default function SocialAccount() {
     );
   };
 
-  const signInWithApple = async () => {
-    const cb = `${window.location.origin}/dashboard`;
-    await authClient.signIn.social(
-      {
-        provider: 'apple',
-        callbackURL: cb,
-      },
-      {
-        onRequest: () => {
-          setIsLoading(true);
-          setError(null);
-        },
-        onSuccess: () => {
-          setIsLoading(false);
-          setError(null);
-          router.push(cb);
-        },
-        onError: ctx => {
-          setError(ctx.error.message);
-          setIsLoading(false);
-        },
-      }
-    );
-  };
+  // const signInWithApple = async () => {
+  //   const cb = `${window.location.origin}/dashboard`;
+  //   await authClient.signIn.social(
+  //     {
+  //       provider: 'apple',
+  //       callbackURL: cb,
+  //     },
+  //     {
+  //       onRequest: () => {
+  //         setIsLoading(true);
+  //         setError(null);
+  //       },
+  //       onSuccess: () => {
+  //         setIsLoading(false);
+  //         setError(null);
+  //         router.push(cb);
+  //       },
+  //       onError: ctx => {
+  //         setError(ctx.error.message);
+  //         setIsLoading(false);
+  //       },
+  //     }
+  //   );
+  // };
 
   return (
     <div className="flex flex-col gap-4">
-      <Button
+      {/* <Button
         variant="outline"
         className="w-full"
         onClick={signInWithApple}
@@ -77,7 +77,7 @@ export default function SocialAccount() {
           />
         </svg>
         {isLoading ? 'Loading...' : 'Login with Apple'}
-      </Button>
+      </Button> */}
       <Button
         type="button"
         variant="outline"

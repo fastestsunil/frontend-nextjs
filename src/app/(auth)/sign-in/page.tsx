@@ -5,6 +5,7 @@ import { ArrowRight, Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import SocialAccount from '@/components/auth/social-account';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -78,17 +79,21 @@ export default function SignInPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted/20 p-4">
       <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-2xl font-bold tracking-tight">
-            Welcome Back
-          </CardTitle>
-          <CardDescription className="text-muted-foreground">
-            Sign in to your account to continue
+        <CardHeader className="text-center">
+          <CardTitle className="text-xl">Welcome back</CardTitle>
+          <CardDescription>
+            Login with your Apple or Google account
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <SocialAccount />
+              <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+                <span className="bg-card text-muted-foreground relative z-10 px-2">
+                  Or continue with
+                </span>
+              </div>
               {error && (
                 <div className="p-3 text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-md">
                   {error}

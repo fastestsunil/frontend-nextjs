@@ -6,12 +6,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { findSessionCookie } from '@/lib/cookie-utils';
 import { cookies } from 'next/headers';
 
 export default async function TestCookiesPage() {
+  // Get session cookie and all cookies
+  const sessionCookie = await findSessionCookie();
   const cookieStore = await cookies();
   const allCookies = cookieStore.getAll();
-  const sessionCookie = cookieStore.get('better-auth.session_token');
 
   return (
     <div className="container mx-auto p-6 space-y-6">
@@ -37,6 +39,14 @@ export default async function TestCookiesPage() {
             <div className="space-y-2">
               <p>
                 <strong>Name:</strong> {sessionCookie.name}
+              </p>
+              <p>
+                <strong>Environment:</strong>{' '}
+                <Badge variant="outline">
+                  {sessionCookie.name === 'backend.session_token'
+                    ? 'Development'
+                    : 'Production'}
+                </Badge>
               </p>
               <p>
                 <strong>Value:</strong> {sessionCookie.value.substring(0, 50)}
@@ -70,8 +80,8 @@ export default async function TestCookiesPage() {
                 <div key={cookie.name} className="border rounded p-3">
                   <div className="flex items-center gap-2 mb-2">
                     <strong>{cookie.name}</strong>
-                    {cookie.name === 'better-auth.session_token' && (
-                      <Badge variant="default">Session</Badge>
+                    {cookie.name.includes('backend.session_token') && (
+                      <Badge variant="default">Session Token</Badge>
                     )}
                   </div>
                   <p className="text-sm text-muted-foreground break-all">

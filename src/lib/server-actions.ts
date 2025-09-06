@@ -1,19 +1,10 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { authClient } from './auth-client';
+import { getSessionCookieHeader } from './cookie-utils';
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8090';
-
-/**
- * Helper function to get session cookie for API requests
- */
-async function getSessionCookieHeader(): Promise<string> {
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get('backend.session_token');
-  return sessionCookie ? `${sessionCookie.name}=${sessionCookie.value}` : '';
-}
 
 /**
  * Server action to get current user session

@@ -33,23 +33,14 @@ export default function Page() {
     );
   }
 
-  const isAnonymous = session.user.isAnonymous;
-  const userType = isAnonymous ? 'Anonymous User' : 'Authenticated User';
-
   return (
     <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
       <div className="px-4 lg:px-6">
         <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center gap-3 mb-4">
-            <div
-              className={`px-3 py-1 rounded-full text-sm font-medium ${
-                isAnonymous
-                  ? 'bg-blue-100 text-blue-800'
-                  : 'bg-green-100 text-green-800'
-              }`}
-            >
-              {userType}
+            <div className={`px-3 py-1 rounded-full text-sm font-medium `}>
+              {session.user.role}
             </div>
           </div>
 
@@ -65,16 +56,6 @@ export default function Page() {
             <span className="font-medium">Role:</span>{' '}
             {session.user.role || 'user'}
           </p>
-
-          {isAnonymous && (
-            <div className="bg-yellow-50 border border-yellow-200 rounded p-4 mb-4">
-              <p className="text-yellow-800 text-sm">
-                <strong>Note:</strong> You are currently signed in anonymously.
-                Your data will be preserved if you choose to create a full
-                account later.
-              </p>
-            </div>
-          )}
 
           <details className="mt-6">
             <summary className="cursor-pointer text-sm font-medium text-gray-600 hover:text-gray-800">

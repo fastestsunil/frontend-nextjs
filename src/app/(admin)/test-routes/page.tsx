@@ -8,11 +8,12 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { getCurrentUser } from '@/lib/server-actions';
+import { Alert, AlertDescription } from '../../../components/ui/alert';
 
 export default async function TestRoutesPage() {
   // Get current user session
   const userResult = await getCurrentUser();
-  const isAuthenticated = userResult.success && userResult.data;
+  const isAuthenticated = userResult?.data;
 
   return (
     <div className="container mx-auto p-6 space-y-6">

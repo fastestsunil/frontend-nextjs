@@ -11,7 +11,7 @@ const API_BASE_URL =
  */
 async function getSessionCookieHeader(): Promise<string> {
   const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get('better-auth.session_token');
+  const sessionCookie = cookieStore.get('backend.session_token');
   return sessionCookie ? `${sessionCookie.name}=${sessionCookie.value}` : '';
 }
 
@@ -21,16 +21,10 @@ async function getSessionCookieHeader(): Promise<string> {
 export async function getCurrentUser() {
   try {
     const session = await authClient.getSession();
-    return {
-      success: true,
-      data: session,
-    };
+    return session; // Return the session directly
   } catch (error) {
     console.error('Error getting current user:', error);
-    return {
-      success: false,
-      error: 'Failed to get user session',
-    };
+    return null; // Return null on error
   }
 }
 
@@ -91,8 +85,6 @@ export async function testProtectedRoute() {
  */
 export async function testPublicRoute() {
   try {
-    const session = await authClient.getSession();
-
     // Get cookies from the request to forward to API
     const cookieHeader = await getSessionCookieHeader();
 

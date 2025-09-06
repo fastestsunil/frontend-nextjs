@@ -1,12 +1,11 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { authClient } from '@/lib/auth-client';
-import { useRouter } from 'next/navigation';
+
 // import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 export default function SocialAccount() {
-  const router = useRouter();
   // const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

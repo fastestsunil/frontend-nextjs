@@ -11,50 +11,93 @@ import {
 import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
 
-interface TestResult {
+interface ProtectedRouteData {
+  user?: {
+    name?: string;
+    email?: string;
+    role?: string;
+  };
+}
+
+interface PublicRouteData {
+  isAuthenticated?: boolean;
+  user?: {
+    name?: string;
+    email?: string;
+  };
+}
+
+interface AdminRouteData {
+  user?: {
+    name?: string;
+    email?: string;
+    role?: string;
+  };
+  adminData?: {
+    secretMessage?: string;
+  };
+}
+
+interface ProfileRouteData {
+  profile?: {
+    name?: string;
+    email?: string;
+    role?: string;
+  };
+  session?: {
+    id?: string;
+  };
+}
+
+interface TestResult<TData = unknown> {
   success: boolean;
-  data?: any;
+  data?: TData;
   error?: string;
   message?: string;
   status?: number;
 }
 
 export function TestRouteButtons() {
-  const [protectedResult, setProtectedResult] = useState<TestResult | null>(
-    null
-  );
-  const [publicResult, setPublicResult] = useState<TestResult | null>(null);
-  const [adminResult, setAdminResult] = useState<TestResult | null>(null);
-  const [profileResult, setProfileResult] = useState<TestResult | null>(null);
-  const [isLoading, setIsLoading] = useState<string | null>(null);
+  const [protectedResult, setProtectedResult] =
+    useState<TestResult<ProtectedRouteData> | null>(null);
+  const [publicResult, setPublicResult] =
+    useState<TestResult<PublicRouteData> | null>(null);
+  const [adminResult, setAdminResult] =
+    useState<TestResult<AdminRouteData> | null>(null);
+  const [profileResult, setProfileResult] =
+    useState<TestResult<ProfileRouteData> | null>(null);
+  const [isLoading, setIsLoading] = useState<
+    'protected' | 'public' | 'admin' | 'profile' | null
+  >(null);
 
-  const handleTest = async (
-    testType: string,
+  async function handleTest(
+    testType: 'protected' | 'public' | 'admin' | 'profile',
     testFunction: () => Promise<TestResult>
-  ) => {
+  ) {
     setIsLoading(testType);
     try {
       const result = await testFunction();
       switch (testType) {
         case 'protected':
-          setProtectedResult(result);
+          setProtectedResult(result as TestResult<ProtectedRouteData>);
           break;
         case 'public':
-          setPublicResult(result);
+          setPublicResult(result as TestResult<PublicRouteData>);
           break;
         case 'admin':
-          setAdminResult(result);
+          setAdminResult(result as TestResult<AdminRouteData>);
           break;
         case 'profile':
-          setProfileResult(result);
+          setProfileResult(result as TestResult<ProfileRouteData>);
           break;
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Error testing ${testType}:`, error);
     } finally {
       setIsLoading(null);
     }
-  };
+  }
 
   return (
     <div className="grid gap-6 md:grid-cols-2">

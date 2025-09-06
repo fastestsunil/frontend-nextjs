@@ -3,6 +3,7 @@ import { authClient } from '@/lib/auth-client';
 import { IconLogout } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Alert } from '../ui/alert';
 import { DropdownMenuItem } from '../ui/dropdown-menu';
 
 export default function SignOut() {
@@ -31,6 +32,7 @@ export default function SignOut() {
   return (
     <DropdownMenuItem onClick={handleSignOut} disabled={isLoading}>
       <IconLogout />
+      {error && <Alert>{error}</Alert>}
       {isLoading ? 'Signing out...' : 'Log out'}
     </DropdownMenuItem>
   );

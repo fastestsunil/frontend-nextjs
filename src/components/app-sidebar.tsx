@@ -49,12 +49,12 @@ const data = {
     },
     {
       title: 'Test Routes',
-      url: '/test-routes',
+      url: '/dashboard/test-routes',
       icon: IconTestPipe,
     },
     {
       title: 'Test Cookies',
-      url: '/test-cookies',
+      url: '/dashboard/test-cookies',
       icon: IconCookie,
     },
     {

@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { getCurrentUser } from '@/lib/server-actions';
-import { Alert, AlertDescription } from '../../../components/ui/alert';
+import { Alert, AlertDescription } from '../../../../components/ui/alert';
 
 export default async function TestRoutesPage() {
   // Get current user session
